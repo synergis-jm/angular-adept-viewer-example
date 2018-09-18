@@ -1,11 +1,10 @@
 # AngularAdeptViewerExample
 
-This project demonstrates how to launch the Adept Viewer from an Angular application, authorization code has been included to handle the OAuth token and refresh token system.
+This project demonstrates how to launch the Adept Viewer from an Angular application, authorization code has been included to handle the OAuth token and refresh token system. This code will only work for Adept 2018.
 
 
 ## WebApi URL 
 Update the globals class file located in src/app/globals.ts with the URL for the WebApi
-
 
 ## Development server
 
