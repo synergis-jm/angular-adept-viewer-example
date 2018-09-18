@@ -1,6 +1,11 @@
 # AngularAdeptViewerExample
 
-This project demonstrates how to launch the Adept Viewer from an Angular application, authorization code has been included to handle the OAuth token and refresh token system. 
+This project demonstrates how to launch the Adept Viewer from an Angular application, authorization code has been included to handle the OAuth token and refresh token system.
+
+
+## WebApi URL 
+Update the globals class file located in src/app/globals.ts with the URL for the WebApi
+
 
 ## Development server
 
@@ -25,6 +30,3 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-
-## WebApi URL 
-Update the globals class file located in src/app/globals.ts with the URL for the WebApi

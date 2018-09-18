@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   public currentRecord: any;
   private viewerOptions: Map<string, string>;
   ngOnInit() {
+    // hard coded filename as the search schemaid
     this.term.schemaID = 'SCHEMA_S_LONGNAME';
   }
 
@@ -55,6 +56,7 @@ export class HomeComponent implements OnInit {
     this.getViewerOptions().subscribe(options => {
       const userModel = JSON.parse(localStorage.getItem('userModel')) as UserModel;
 
+      // create a string with all the paramaters for the file
       let documentString = `TableNumber=${this.currentRecord['SCHEMA_S_SRCDB']}:`;
       documentString += `FileId=${this.currentRecord['SCHEMA_S_FILEID']}:`;
       documentString += `MinRev=${this.currentRecord['SCHEMA_S_MINREV']}:`;
@@ -65,6 +67,7 @@ export class HomeComponent implements OnInit {
       documentString += `LoginName=${userModel.LoginName}:`;
       documentString += `UserName=${userModel.UserName}:`;
       console.log(options);
+      // init parameters for the viewer
       const init_params = {
         'GUIFile': 'AdeptConvertPrintRedline.gui',
         'CodeBase': options['Codebase'],
@@ -100,16 +103,21 @@ export class HomeComponent implements OnInit {
   }
 
   checkViewer(): Observable<any> {
+    // see if viewer is running
     return this.http.get(this.VIEWERURL,  {responseType: 'text'} ).pipe(switchMap(resp => {
+      // return true
       return of(true);
     }), catchError(error => {
+      // if it isn't running we use the URI scheme to launch it, the jnlp is generated on the server
       const secure = window.location.protocol === 'http:' ? 'false' : 'true';
       window.location.href = `jnlp:${Global.API_URL}/api/view/jnlp?secure=${secure}&webapiurl=${Global.API_URL}`;
+      // wait for the viewer to come alive
       return this.waitForViewer();
     }));
   }
 
   waitForViewer(): Observable<any> {
+    // checks if the viewer is running, it retries every 2 seconds on failure
     return this.http.get(this.VIEWERURL, { responseType: 'text' })
     .pipe(retryWhen(_ => {
         return interval(2000).pipe(
