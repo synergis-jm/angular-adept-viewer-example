@@ -1,0 +1,34 @@
+<div class="container-fluid" style="margin: 20px 10px 0px 10px">
+    <div class="row">
+        <div class="col-sm">
+          <input type="text" class="form-control" [(ngModel)]="searchValue" placeholder="Search by Filename">
+          <button  [disabled]="searchValue == ''" class="btn btn-sm btn-primary" (click)="search()">Search</button>
+        </div>
+        <div class="col-sm">
+          Records
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Filename</th>
+                  <th scope="col">Library</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr [ngStyle]="{'background-color': record.selected ? 'rgb(180,180,180)' : 'white'}" (click)="recordSelected(record)" *ngFor="let record of records">
+                  <th scope="row">{{record['SCHEMA_S_LONGNAME']}}</th>
+                  <td>{{record['SCHEMA_S_LIBNAME']}}</td>
+                  <td>{{record['SCHEMA_S_STATUS']}}</td>
+                </tr>             
+              </tbody>
+            </table>
+
+        </div>
+        <div class="col-sm">
+          <div>
+              {{currentRecord?.SCHEMA_S_LONGNAME}}
+          </div>
+          <button (click)="view()" class="btn btn-sm btn-primary">View</button>
+        </div>
+      </div>
+</div>

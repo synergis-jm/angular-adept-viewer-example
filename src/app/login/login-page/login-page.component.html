@@ -1,0 +1,17 @@
+<div  class="login-box text-center">
+  <form  class="form-signin">
+    <fieldset [disabled]="processing">
+      <h1 class="h3 mb-3 font-weight-normal">Angular Viewing Example</h1>
+
+      <input type="email" id="inputEmail" [(ngModel)]="user.loginName" name="username" class="form-control" placeholder="Username" required autofocus>
+  
+      <input type="password" id="inputPassword" [(ngModel)]="user.password" name="password" class="form-control" placeholder="Password" required>
+  
+      <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="login()">Log In</button>
+    </fieldset>
+
+
+  </form>
+</div>
+
+
