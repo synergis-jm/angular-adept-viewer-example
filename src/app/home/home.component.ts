@@ -55,7 +55,10 @@ export class HomeComponent implements OnInit {
     // get viewer options first
     this.getViewerOptions().subscribe(options => {
       const userModel = JSON.parse(localStorage.getItem('userModel')) as UserModel;
-
+      let isParent = false;
+      if (this.currentRecord['SCHEMA_S_PARENT'] === 'T' && this.currentRecord['SCHEMA_S_PARENT'] === 't') {
+        isParent = true;
+      }
       // create a string with all the paramaters for the file
       let documentString = `TableNumber=${this.currentRecord['SCHEMA_S_SRCDB']}:`;
       documentString += `FileId=${this.currentRecord['SCHEMA_S_FILEID']}:`;
@@ -63,10 +66,14 @@ export class HomeComponent implements OnInit {
       documentString += `MajRev=${this.currentRecord['SCHEMA_S_MAJREV']}:`;
       documentString += `FileNE=${encodeURIComponent(this.currentRecord['SCHEMA_S_LONGNAME'])}:`;
       documentString += `Size=${this.currentRecord['SCHEMA_S_FILESIZE']}:`;
-      documentString += `IsParent=${this.currentRecord['SCHEMA_S_PARENT']}:`;
-      documentString += `LoginName=${userModel.LoginName}:`;
-      documentString += `UserName=${userModel.UserName}:`;
-      console.log(options);
+      documentString += `IsParent=${isParent}:`;
+      documentString += `LoginName=${userModel.Id}:`;
+      documentString += `UserName=${userModel.LoginName}:`;
+      // process date
+      const fileDate = this.currentRecord['SCHEMA_S_FILEUTC'];
+      const posSpace = fileDate.indexOf(' ');
+      documentString += `Date=${fileDate.substring(0, posSpace)}:`;
+
       // init parameters for the viewer
       const init_params = {
         'GUIFile': 'AdeptConvertPrintRedline.gui',
